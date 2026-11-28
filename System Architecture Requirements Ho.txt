@@ -1,0 +1,37 @@
+System Architecture Requirements: Hostel Maintenance And Facility Reporting App
+
+
+1. What This App Does:
+Students living in Babcock halls often deal with problems like broken doors, spoilt taps, leaking pipes, or electrical faults. Right now, getting those issues fixed can feel slow or unclear. This app we look forward to designing gives students a simple place to report a problem, attach a picture, and see when it gets worked on while helping hall staff and technicians keep track of repairs.
+
+2. How the System Is Layered:
+
+ The Layers
+ a. App (What the user sees):The pages or screens students, hall porters, and technicians use to send requests and view updates.
+ b. Front Desk : Receives what the user sends, checks if they are logged in and allowed to do that action, and makes sure the form isn't missing important details.
+ c. Rules & Action Layer: The brain of the system. It decides what happens next for example, tagging a broken tap under plumbing, sending the report to the right hall, or updating a job from "pending" to "fixed."
+d. Storage & Records Layer: Talks to the database and photo storage so nothing gets lost and every action has a record.
+
+Step-by-Step: This is what Happens When a Student Reports a Fault
+1. A student selects their hall and room, types what is wrong (e.g., "broken tap in bathroom"), adds a photo, and clicks submit.
+2. The system checks that the student is logged in and that all required boxes are filled.
+3. The rules layer saves the photo separately, checks if someone in that room already reported the exact same issue, and marks the report as *Open*.
+4. The record is saved in the database along with the date and time.
+5. The hall admin/porter gets notified to check it, and the student gets a confirmation that their report went through.
+
+3. Main Parts of the Backend
+
+1. Login & Roles(Reporter and fixer): Checks who is using the app and what they are allowed to do (a student can report and check their own issues; hall porters and technicians can manage and update repairs).
+2. Report / Ticket Manager: Handles creating reports, changing their status (like Open, Assigned, In Progress, or Fixed), and stopping duplicate reports for the same issue.
+3. Hall & Room List: Keeps track of the halls, blocks, and rooms so every complaint goes to the right place.
+4. Photo Handler: Takes the picture of the broken door or tap, stores it safely, and links it to the report without slowing down the app.
+5. Alerts / Updates: Sends updates when a report is received, assigned to a repair person, or completed.
+6. History Log: Keeps a record of who updated a report and when, so work isn't easily forgotten or untraceable.
+
+4. Why We Chose These Tools (Technology Choice)
+
+1. Node.js with Express: Reliable and fast for handling lots of people using the app at the same time, and easy for our team to work with because it uses JavaScript.
+REST API with JSON: A standard, straightforward way for the app screens and the backend to talk to each other using simple data formats.
+2. JWT & Password Hashing: Keeps logins safe and ensures passwords aren't stored in plain text.
+3. Prisma (Database Tool): Helps us save and read data cleanly and safely without writing confusing raw database commands everywhere.
+4. Cloud Photo Storage: Keeps heavy photos out of the main database so the app loads faster on campus network.
